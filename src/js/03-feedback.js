@@ -6,8 +6,8 @@ const messageInputEl = document.querySelector('textarea[name = "message"]');
 
 const saveToLocStrg = _.throttle(function(){
     const inputData = {
-        email: emailInputEl.value,
-        message: messageInputEl.value
+        email: emailInputEl.value.trim(),
+        message: messageInputEl.value.trim()
     };
     localStorage.setItem('feedback-form-state', JSON.stringify(inputData));
 }, 500);
@@ -18,13 +18,24 @@ if (savedInputData) {
   const inputData = JSON.parse(savedInputData);
   emailInputEl.value = inputData.email || '';
   messageInputEl.value= inputData.message || '';
-}})
+}});
  window.addEventListener('load', extractFromStrg);
- const removeInputData = (function(){
+
+
+ const removeInputData = (function(event){
+  event.preventDefault();
+const trimmedInputEmailEl = emailInputEl.value.trim();
+const trimmedInputMessagelEl = messageInputEl.value.trim();
+
+if (trimmedInputEmailEl ===""|| trimmedInputMessagelEl ==="") {
+  alert('Будь ласка, заповніть всі поля форми!');
+  return;
+}
+else
     localStorage.removeItem('feedback-form-state');
-   
- })
- const logData=(function(){ console.log(emailInputEl.value);
-    console.log(messageInputEl.value);})
+    console.log(emailInputEl.value);
+    console.log(messageInputEl.value);
+
+ });
  formEl.addEventListener('submit', removeInputData);
- formEl.addEventListener('submit', logData);
+ 
