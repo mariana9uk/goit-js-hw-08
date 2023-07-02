@@ -33,9 +33,11 @@ if (trimmedInputEmailEl ===""|| trimmedInputMessagelEl ==="") {
 }
 else
     localStorage.removeItem('feedback-form-state');
-    console.log(emailInputEl.value);
-    console.log(messageInputEl.value);
-
+   
+    const inputsObj = {email: emailInputEl.value, message:messageInputEl.value}
+    console.log(inputsObj);
+    emailInputEl.value = "";
+    messageInputEl.value = "";
  });
  formEl.addEventListener('submit', removeInputData);
  
